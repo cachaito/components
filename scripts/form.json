@@ -1,0 +1,46 @@
+[
+    {
+        "id": "age",
+        "type": "TEXT",
+        "desc": "Provide your age",
+        "validate": true,
+        "validators": [
+            {"maxLength": 3},
+            {"itemType": "number"}
+        ],
+        "order": 1
+    },
+    {
+        "id": "sex",
+        "type": "DICTIONARY",
+        "desc": "Choose your sex",
+        "options": [
+            {
+                "value": "male",
+                "label": "Male"
+            },
+            {
+                "value": "female",
+                "label": "Female"
+            }
+        ],
+        "validate": true,
+        "validators": [
+            {"selected": true}
+        ],
+        "order": 3
+    },
+    {
+        "id": "email",
+        "type": "TEXT",
+        "desc": "Provide your e-mail address",
+        "order": 2
+    },
+    {
+        "id": "submit",
+        "type": "BUTTON",
+        "desc": "Submit",
+        "model": "submit",
+        "order": 5
+    }
+]
