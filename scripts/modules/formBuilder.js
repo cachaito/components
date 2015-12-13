@@ -8,15 +8,16 @@ var mapping = {
 function formBuilder(structure) {
     try {
         elementManager.addElements(createComponents(structure));
-        renderComponents();
     } catch (e) {
         throw new Error('Error in building a form ' + e);
     }
+
+    listenForEvents(); // change to execute only once when update structure
+    renderComponents();
 }
 
 function createComponents(structure) {
     var readyComponents = structure.map(function(component) {
-
         try {
             return new mapping[component.type](component);
         } catch (e) {
@@ -25,6 +26,10 @@ function createComponents(structure) {
     });
 
     return readyComponents;
+}
+
+function listenForEvents() {
+    document.addEventListener('value-change', elementManager.manageEvents);
 }
 
 function renderComponents() {

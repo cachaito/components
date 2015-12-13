@@ -16,7 +16,13 @@ BaseComponent.prototype.build = function(context) {
 BaseComponent.prototype.handler = function(e) {
     if (e.target.tagName.toLowerCase() === this.coreElement) {
         console.log(e);
+        this.fire('value-change', this);
     }
+};
+
+BaseComponent.prototype.fire = function(eventName, data) {
+    var event = new CustomEvent(eventName, {detail: data, bubbles: true});
+    return this.element.dispatchEvent(event);
 };
 
 BaseComponent.prototype.attachEvents = function(eventType) {

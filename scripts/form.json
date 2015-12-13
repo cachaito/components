@@ -41,6 +41,6 @@
         "type": "BUTTON",
         "desc": "Submit",
         "model": "submit",
-        "order": 5
+        "order": 4
     }
 ]
