@@ -18,7 +18,7 @@ function Button(meta) {
 
 Button.prototype.handler = function(e) {
     console.log(e);
-}
+};
 
 Button.prototype = new BaseComponent();
 

@@ -4,7 +4,7 @@
   "description": "Testing of validation module and Jade templating",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jscs ./scripts --reporter=console",
     "browserify": "browserify -t [jadeify --pretty false] scripts/main.js > ./bundle.js -d",
     "watchify": "watchify scripts/main.js -o ./bundle.js -t jadeify -d --verbose",
     "watch": "npm-scripts-watcher",
@@ -22,6 +22,7 @@
     "browserify": "^12.0.1",
     "jade": "^1.11.0",
     "jadeify": "^4.5.0",
+    "jscs": "^2.7.0",
     "npm-scripts-watcher": "^1.0.2",
     "watchify": "^3.6.1"
   }
