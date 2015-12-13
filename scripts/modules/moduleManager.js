@@ -2,12 +2,19 @@ var modules = [
     require('./validation')
 ];
 
-function applyModules(elem, observer) {
+function applyModules(elem) {
     modules.forEach(function(module) {
-        module.call(null, elem, observer);
+        module.call(null, elem);
     });
 
     return elem;
 }
 
-module.exports = applyModules;
+function getModuleList() {
+    return modules;
+}
+
+module.exports = {
+    applyModules: applyModules,
+    getModulesList: getModuleList
+};

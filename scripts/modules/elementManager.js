@@ -1,5 +1,4 @@
 var moduleManager = require('./moduleManager');
-var observer = require('./observer');
 var elements = [];
 
 function getElements() {
@@ -8,18 +7,11 @@ function getElements() {
 
 function addElements(components) {
     components.map(function(elem) {
-        elements.push(moduleManager(elem, observer));
+        elements.push(moduleManager.applyModules(elem));
     });
-}
-
-function manageEvents(data) {
-    if (data.detail.hasOwnProperty('validate')) {
-        observer.trigger('validate', data);
-    }
 }
 
 module.exports = {
     getElements: getElements,
-    addElements: addElements,
-    manageEvents: manageEvents
+    addElements: addElements
 };

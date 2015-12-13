@@ -1,4 +1,5 @@
 var elementManager = require('./elementManager');
+var observer = require('./observer');
 var mapping = {
     TEXT: require('../components/input'),
     DICTIONARY: require('../components/dictionary'),
@@ -29,7 +30,13 @@ function createComponents(structure) {
 }
 
 function listenForEvents() {
-    document.addEventListener('value-change', elementManager.manageEvents);
+    document.addEventListener('value-change', manageEvents);
+}
+
+function manageEvents(data) {
+    if (data.detail.hasOwnProperty('validate')) {
+        observer.trigger('validate', data);
+    }
 }
 
 function renderComponents() {
@@ -50,6 +57,7 @@ function sortElements(array) {
     return clonedArray;
 }
 
+// debug purpose
 window.APP = {};
 APP.elementManager = elementManager;
 
