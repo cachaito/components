@@ -16,10 +16,18 @@ function Button(meta) {
     this.attachEvents('click');
 }
 
-Button.prototype.handler = function(e) {
-    console.log(e);
-};
-
 Button.prototype = new BaseComponent();
+
+// Button.prototype.handler = function(e) {
+//     if (e.target.tagName.toLowerCase() === this.coreElement) {
+//         console.log(e);
+
+//         if (this.model && this.model === 'submit') {
+//             this.fire('submit-form', this);
+//         } else {
+//             this.fire('value-change', this);
+//         }
+//     }
+// };
 
 module.exports = Button;

@@ -4,9 +4,10 @@ var observer = {
         if (!observerList[name] || observerList[name].length === 0) {
             observerList[name] = [callback];
         } else {
-            observerList[name].push(callback);
+            if (observerList[name].indexOf(callback) === -1) {
+                observerList[name].push(callback);
+            }
         }
-
     },
     off: function(name, callback) {
         if (!observerList[name] || observerList[name].length === 1) {

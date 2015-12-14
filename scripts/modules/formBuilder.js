@@ -1,5 +1,4 @@
 var elementManager = require('./elementManager');
-var observer = require('./observer');
 var mapping = {
     TEXT: require('../components/input'),
     DICTIONARY: require('../components/dictionary'),
@@ -13,7 +12,6 @@ function formBuilder(structure) {
         throw new Error('Error in building a form ' + e);
     }
 
-    listenForEvents(); // change to execute only once when update structure
     renderComponents();
 }
 
@@ -27,16 +25,6 @@ function createComponents(structure) {
     });
 
     return readyComponents;
-}
-
-function listenForEvents() {
-    document.addEventListener('value-change', manageEvents);
-}
-
-function manageEvents(data) {
-    if (data.detail.hasOwnProperty('validate')) {
-        observer.trigger('validate', data);
-    }
 }
 
 function renderComponents() {

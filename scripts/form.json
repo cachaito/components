@@ -37,10 +37,19 @@
         "order": 2
     },
     {
+        "id": "confirm",
+        "type": "BUTTON",
+        "desc": "Please confirm that agree",
+        "order": 4
+    },
+    {
         "id": "submit",
         "type": "BUTTON",
-        "desc": "Submit",
         "model": "submit",
-        "order": 4
+        "action": "",
+        "desc": "Submit",
+        "validate": true,
+        "validators": [],
+        "order": 5,
     }
 ]
