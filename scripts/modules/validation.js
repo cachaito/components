@@ -1,4 +1,4 @@
-var elementManager = require('./elementManager'); // TODO fix circular dependency???
+var elementManager = require('./elementManager');
 var observer = require('./observer');
 var eventName = 'validate'; // TODO move to config
 
@@ -10,7 +10,7 @@ function addValidation(elem) {
 }
 
 function validateAll() {
-    APP.elementManager.getElements().forEach(function(elem) { // TODO change after circular dependency fixed
+    elementManager.getElements().forEach(function(elem) {
         if (elem.validate && elem.validators.length) {
             validate(elem);
         }

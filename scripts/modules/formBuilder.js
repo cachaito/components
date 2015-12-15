@@ -1,4 +1,5 @@
 var elementManager = require('./elementManager');
+var moduleManager = require('./moduleManager');
 var mapping = {
     TEXT: require('../components/input'),
     DICTIONARY: require('../components/dictionary'),
@@ -18,7 +19,7 @@ function formBuilder(structure) {
 function createComponents(structure) {
     var readyComponents = structure.map(function(component) {
         try {
-            return new mapping[component.type](component);
+            return moduleManager.applyModules(new mapping[component.type](component));
         } catch (e) {
             throw new Error('Error in creating a component ' + e);
         }

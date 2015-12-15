@@ -1,4 +1,3 @@
-var moduleManager = require('./moduleManager');
 var elements = [];
 
 function getElements() {
@@ -7,7 +6,7 @@ function getElements() {
 
 function addElements(components) {
     components.map(function(elem) {
-        elements.push(moduleManager.applyModules(elem));
+        elements.push(elem);
     });
 }
 
