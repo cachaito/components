@@ -19,5 +19,5 @@ function manageEvents(data) {
 
 (function init() {
     formBuilder(formData);
-    listenForEvents(); // TODO change to execute only once when update structure
+    listenForEvents();
 })();

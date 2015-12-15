@@ -13,6 +13,8 @@ function Input(meta) {
     this.coreElement = 'input';
     this.build(context);
     this.attachEvents();
+
+    // this.element.querySelector(this.coreElement).setAttribute('class', 'field');
 }
 
 Input.prototype = new BaseComponent();
