@@ -5,8 +5,14 @@
         "desc": "Provide your age",
         "validate": true,
         "validators": [
-            {"maxLength": 3},
-            {"itemType": "number"}
+            {
+                "maxLength": 3,
+                "message": "There is too much letters"
+            },
+            {
+                "itemType": "number",
+                "message": "Please provide a number"
+            }
         ],
         "order": 1
     },

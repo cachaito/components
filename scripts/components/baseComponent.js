@@ -11,10 +11,14 @@ BaseComponent.prototype.build = function(context) {
     element.innerHTML = this.template(context);
     this.element = element;
     this.handler = this.handler.bind(this);
+
+    if (this.coreElement) {
+        this.coreElement = element.querySelector(this.coreElement);
+    }
 };
 
 BaseComponent.prototype.handler = function(e) {
-    if (e.target.tagName.toLowerCase() === this.coreElement) {
+    if (e.target === this.coreElement) {
         console.log(e);
         this.fire('value-change', this);
     }
