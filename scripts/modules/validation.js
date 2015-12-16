@@ -4,7 +4,7 @@ var eventName = 'validate'; // TODO move to config
 var validators = {
     maxLength: function(elem, validator) {
         if (elem.value.length > validator.maxLength) {
-            alert('Error!');
+            return validator.message;
         }
     }
 };
@@ -25,6 +25,7 @@ function validateAll() {
 }
 
 function validate(data, eventName) {
+    var result = [];
     if (data.model === 'submit') {
         validateAll();
     }
@@ -32,10 +33,16 @@ function validate(data, eventName) {
     data.validators.forEach(function(toCheck) {
         Object.keys(toCheck).forEach(function(validator) {
             if (validator in validators) {
-                validators[validator](data.coreElement, toCheck);
+                var messages = validators[validator](data.coreElement, toCheck);
+
+                if (messages) {
+                    result.push(messages);
+                }
             }
         });
     });
+
+    return result.length ? data.setError(result) : data.setError(null);
 }
 
 module.exports = addValidation;

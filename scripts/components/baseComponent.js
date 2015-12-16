@@ -10,10 +10,25 @@ BaseComponent.prototype.build = function(context) {
     element.setAttribute('id', this.id);
     element.innerHTML = this.template(context);
     this.element = element;
+    this.validationElement = this.element.querySelector('.validation');
     this.handler = this.handler.bind(this);
 
     if (this.coreElement) {
         this.coreElement = element.querySelector(this.coreElement);
+    }
+};
+
+BaseComponent.prototype.setError = function(messages) {
+
+    // TODO handling submit validateAll action && button without ul.validation section
+    if (messages) {
+        this.coreElement.classList.add('error');
+        this.validationElement.innerHTML = messages.map(function(error) {
+            return '<li>' + error + '</li>';
+        }).join('');
+    } else {
+        this.coreElement.classList.remove('error');
+        this.validationElement.innerHTML = '';
     }
 };
 
