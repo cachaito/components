@@ -22,6 +22,8 @@ function validateAll() {
             validate(component);
         }
     });
+    
+    return;
 }
 
 function validate(component, eventName) {
