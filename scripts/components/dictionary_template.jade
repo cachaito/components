@@ -1,6 +1,6 @@
 label #{desc}
     select(id='element-#{id}' class='field')
-        option Select an option
+        option #{defaultOption || 'Alternative default label'}
         each option in options
             option(value=option.value) #{option.label}
 include ./validation_template.jade

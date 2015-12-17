@@ -2,8 +2,24 @@ var elementManager = require('./elementManager');
 var observer = require('./observer');
 var eventName = 'validate'; // TODO move to config
 var validators = {
-    maxLength: function(elem, validator) {
-        if (elem.value.length > validator.maxLength) {
+    maxLength: function(component, validator) {
+        if (component.coreElement.value.length > validator.maxLength) {
+            return validator.message;
+        }
+    },
+    itemType: function(component, validator) {
+        var value = component.coreElement.value;
+
+        if (validator.itemType === 'number') {
+            value = isNaN(parseFloat(component.coreElement.value)) === true ? String(value) : Number(value);
+        }
+
+        if (typeof value !== validator.itemType) {
+            return validator.message;
+        }
+    },
+    selected: function(component, validator) {
+        if (component.coreElement.value === component.defaultOption) {
             return validator.message;
         }
     }
@@ -22,7 +38,7 @@ function validateAll() {
             validate(component);
         }
     });
-    
+
     return;
 }
 
@@ -38,7 +54,7 @@ function validate(component, eventName) {
     component.validators.forEach(function(toCheck) {
         Object.keys(toCheck).forEach(function(validator) {
             if (validator in validators) {
-                var messages = validators[validator](component.coreElement, toCheck);
+                var messages = validators[validator](component, toCheck);
 
                 if (messages) {
                     result.push(messages);

@@ -7,7 +7,7 @@
         "validators": [
             {
                 "maxLength": 3,
-                "message": "There is too much letters"
+                "message": "There is too much signs"
             },
             {
                 "itemType": "number",
@@ -20,6 +20,7 @@
         "id": "sex",
         "type": "DICTIONARY",
         "desc": "Choose your sex",
+        "defaultOption": "Select an option",
         "options": [
             {
                 "value": "male",
@@ -32,7 +33,10 @@
         ],
         "validate": true,
         "validators": [
-            {"selected": true}
+            {
+                "selected": true,
+                "message": "Choosing option is mandatory"
+            }
         ],
         "order": 3
     },

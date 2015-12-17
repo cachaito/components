@@ -7,6 +7,7 @@ function Dictionary(meta) {
     var context = {
         id: this.id,
         desc: this.desc,
+        defaultOption: this.defaultOption,
         options: this.options
     };
 
