@@ -21,7 +21,7 @@ BaseComponent.prototype.build = function(context) {
 BaseComponent.prototype.setError = function(messages) {
 
     // TODO handling submit validateAll action && button without ul.validation section
-    if (messages) {
+    if (messages.length) {
         this.coreElement.classList.add('error');
         this.validationElement.innerHTML = messages.map(function(error) {
             return '<li>' + error + '</li>';

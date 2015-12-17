@@ -9,31 +9,34 @@ var validators = {
     }
 };
 
-function addValidation(elem) {
-    if (elem.validate && elem.validators.length) {
+function addValidation(component) {
+    if (component.validate && component.validators.length) {
         observer.on(eventName, validate);
     }
-    return elem;
+    return component;
 }
 
 function validateAll() {
-    elementManager.getElements().forEach(function(elem) {
-        if (elem.validate && elem.validators.length) {
-            validate(elem);
+    elementManager.getElements().forEach(function(component) {
+        if (component.validate && component.validators.length) {
+            validate(component);
         }
     });
 }
 
-function validate(data, eventName) {
+function validate(component, eventName) {
     var result = [];
-    if (data.model === 'submit') {
+
+    if (component.model === 'submit') {
         validateAll();
+
+        return; // TODO consider add class error for button
     }
 
-    data.validators.forEach(function(toCheck) {
+    component.validators.forEach(function(toCheck) {
         Object.keys(toCheck).forEach(function(validator) {
             if (validator in validators) {
-                var messages = validators[validator](data.coreElement, toCheck);
+                var messages = validators[validator](component.coreElement, toCheck);
 
                 if (messages) {
                     result.push(messages);
@@ -42,7 +45,7 @@ function validate(data, eventName) {
         });
     });
 
-    return result.length ? data.setError(result) : data.setError(null);
+    return component.setError(result);
 }
 
 module.exports = addValidation;
