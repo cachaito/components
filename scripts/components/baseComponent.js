@@ -19,8 +19,6 @@ BaseComponent.prototype.build = function(context) {
 };
 
 BaseComponent.prototype.setError = function(messages) {
-
-    // TODO handling submit validateAll action && button without ul.validation section
     if (messages.length) {
         this.coreElement.classList.add('error');
         this.validationElement.innerHTML = messages.map(function(error) {
@@ -32,6 +30,11 @@ BaseComponent.prototype.setError = function(messages) {
     }
 };
 
+BaseComponent.prototype.setDisable = function(value) {
+    value === true ? this.coreElement.setAttribute('disabled', value) : this.coreElement.removeAttribute('disabled');
+    this.fire('disable-element', this);
+};
+
 BaseComponent.prototype.handler = function(e) {
     if (e.target === this.coreElement) {
         console.log(e);
@@ -40,8 +43,7 @@ BaseComponent.prototype.handler = function(e) {
 };
 
 BaseComponent.prototype.fire = function(eventName, data) {
-    var event = new CustomEvent(eventName, {detail: data, bubbles: true});
-    return this.element.dispatchEvent(event);
+    return this.element.dispatchEvent(new CustomEvent(eventName, {detail: data, bubbles: true}));
 };
 
 BaseComponent.prototype.attachEvents = function(eventType) {

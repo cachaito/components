@@ -14,7 +14,8 @@
                 "message": "Please provide a number"
             }
         ],
-        "order": 1
+        "order": 1,
+        "disabled": false
     },
     {
         "id": "sex",
@@ -38,13 +39,15 @@
                 "message": "Choosing option is mandatory"
             }
         ],
-        "order": 3
+        "order": 3,
+        "disabled": true
     },
     {
         "id": "email",
         "type": "TEXT",
         "desc": "Provide your e-mail address",
-        "order": 2
+        "order": 2,
+        "disabled": true
     },
     {
         "id": "confirm",

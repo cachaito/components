@@ -6,15 +6,14 @@ function Input(meta) {
 
     var context = {
         id: this.id,
-        desc: this.desc
+        desc: this.desc,
+        disabled: this.disabled ? this.disabled : undefined
     };
 
     this.template = template;
     this.coreElement = 'input';
     this.build(context);
     this.attachEvents();
-
-    // this.element.querySelector(this.coreElement).setAttribute('class', 'field');
 }
 
 Input.prototype = new BaseComponent();

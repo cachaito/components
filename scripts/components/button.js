@@ -7,7 +7,8 @@ function Button(meta) {
     var context = {
         id: this.id,
         desc: this.desc,
-        model: this.model
+        model: this.model,
+        disabled: this.disabled ? this.disabled : undefined
     };
 
     this.template = template;

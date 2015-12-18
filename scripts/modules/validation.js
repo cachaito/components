@@ -1,7 +1,7 @@
 var elementManager = require('./elementManager');
 var observer = require('./observer');
 var eventName = 'validate'; // TODO move to config
-var validators = {
+var validators = { // TODO consider put validator to a separate module
     maxLength: function(component, validator) {
         if (component.coreElement.value.length > validator.maxLength) {
             return validator.message;

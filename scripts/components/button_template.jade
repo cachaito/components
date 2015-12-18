@@ -1,1 +1,1 @@
-button(id='element-#{id}' class='btn btn-primary #{model != "submit" ? "black bg-gray" : ""}' type=model ? '#{model}' : 'button') #{desc}
+button(id='element-#{id}' class='btn btn-primary #{model != "submit" ? "black bg-gray" : ""}' type=model ? '#{model}' : 'button' disabled=disabled!==undefined) #{desc}

@@ -8,7 +8,8 @@ function Dictionary(meta) {
         id: this.id,
         desc: this.desc,
         defaultOption: this.defaultOption,
-        options: this.options
+        options: this.options,
+        disabled: this.disabled ? this.disabled : undefined
     };
 
     this.template = template;

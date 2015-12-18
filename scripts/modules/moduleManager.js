@@ -1,5 +1,6 @@
 var modules = [
-    require('./validation')
+    require('./validation'),
+    require('./deactivation')
 ];
 
 function applyModules(elem) {
