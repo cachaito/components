@@ -1,5 +1,12 @@
 [
     {
+        "path": "root.section-1",
+        "type": "CONTAINER",
+        "order": 1,
+        "disabled": true
+    },
+    {
+        "path": "root.section-1.age",
         "id": "age",
         "type": "TEXT",
         "desc": "Provide your age",
@@ -14,10 +21,10 @@
                 "message": "Please provide a number"
             }
         ],
-        "order": 1,
-        "disabled": false
+        "order": 1
     },
     {
+        "path": "root.section-1.sex",
         "id": "sex",
         "type": "DICTIONARY",
         "desc": "Choose your sex",
@@ -43,19 +50,34 @@
         "disabled": true
     },
     {
-        "id": "email",
-        "type": "TEXT",
-        "desc": "Provide your e-mail address",
-        "order": 2,
+        "path": "root.section-2",
+        "type": "CONTAINER",
+        "order": 0,
         "disabled": true
     },
     {
+        "path": "root.section-2.email",
+        "id": "email",
+        "type": "TEXT",
+        "desc": "Provide your e-mail address",
+        "order": 5,
+        "disabled": true
+    },
+    {
+        "path": "root.section-2.confirm",
         "id": "confirm",
         "type": "BUTTON",
         "desc": "Please confirm that agree",
         "order": 4
     },
     {
+        "path": "root.section-3",
+        "type": "CONTAINER",
+        "order": 0,
+        "disabled": true
+    },
+    {
+        "path": "root.section-3.submit",
         "id": "submit",
         "type": "BUTTON",
         "model": "submit",
@@ -63,6 +85,6 @@
         "desc": "Submit",
         "validate": true,
         "validators": [],
-        "order": 5,
+        "order": 2,
     }
 ]

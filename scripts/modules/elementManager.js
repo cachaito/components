@@ -10,16 +10,40 @@ function addElements(components) {
     });
 }
 
-function hasChildren(component) {
+function findParent(name) {
+    var result;
+
+    elements.forEach(function(component) {
+        var path = component.path.split('.');
+        var index = path.indexOf(name);
+
+        if (index !== -1) {
+            result = findElement(path[index - 1]);
+        }
+    });
+
+    if (result) {
+        return result;
+    }
     // first way iterate through DOM elements and check if component contains children - preferable solution; component know nothing about other components
     // when build elements save reference in component
 }
 
-function getChildren() {} // TODO
+function findElement(name) {
+    var result = elements.filter(function(component) {
+        var path = component.path.split('.');
+        var index = path.indexOf(name);
+        return index === (path.length - 1) ? component : null;
+    });
+
+    if (result) {
+        return result[0];
+    }
+}
 
 module.exports = {
     getElements: getElements,
     addElements: addElements,
-    hasParent: hasChildren,
-    getParent: getChildren
+    findParent: findParent,
+    findElement: findElement
 };

@@ -35,6 +35,10 @@ BaseComponent.prototype.setDisable = function(value) {
     this.fire('disable-element', this);
 };
 
+BaseComponent.prototype.addChild = function(child) {
+    this.element.appendChild(child);
+};
+
 BaseComponent.prototype.handler = function(e) {
     if (e.target === this.coreElement) {
         console.log(e);
