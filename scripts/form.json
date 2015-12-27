@@ -2,8 +2,11 @@
     {
         "path": "root.section-1",
         "type": "CONTAINER",
-        "order": 1,
-        "disabled": true
+        "order": 0,
+        "disabled": false,
+        "classList": [
+            "newClass"
+        ],
     },
     {
         "path": "root.section-1.age",
@@ -21,7 +24,7 @@
                 "message": "Please provide a number"
             }
         ],
-        "order": 1
+        "order": 0
     },
     {
         "path": "root.section-1.sex",
@@ -46,13 +49,13 @@
                 "message": "Choosing option is mandatory"
             }
         ],
-        "order": 3,
-        "disabled": true
+        "order": 1,
+        "disabled": false
     },
     {
         "path": "root.section-2",
         "type": "CONTAINER",
-        "order": 0,
+        "order": 1,
         "disabled": true
     },
     {
@@ -73,7 +76,7 @@
     {
         "path": "root.section-3",
         "type": "CONTAINER",
-        "order": 0,
+        "order": 2,
         "disabled": true
     },
     {

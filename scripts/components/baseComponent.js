@@ -7,14 +7,28 @@ function BaseComponent(meta) {
 BaseComponent.prototype.build = function(context) {
     var element = document.createElement('div');
 
-    element.setAttribute('id', this.id);
-    element.innerHTML = this.template(context);
-    this.element = element;
-    this.validationElement = this.element.querySelector('.validation');
-    this.handler = this.handler.bind(this);
+    if (this.type === 'CONTAINER') {
+        var tempElement = element.cloneNode();
+        tempElement.innerHTML = this.template();
+
+        this.element = tempElement.firstChild;
+        tempElement = null;
+    } else {
+        element.setAttribute('id', this.id);
+        element.innerHTML = this.template(context);
+        this.element = element;
+        this.validationElement = this.element.querySelector('.validation');
+        this.handler = this.handler.bind(this);
+    }
 
     if (this.coreElement) {
         this.coreElement = element.querySelector(this.coreElement);
+    }
+
+    if (this.classList && this.classList.length) {
+        this.classList.forEach(function(name) {
+            this.element.classList.add(name);
+        }, this);
     }
 };
 
@@ -36,7 +50,10 @@ BaseComponent.prototype.setDisable = function(value) {
 };
 
 BaseComponent.prototype.addChild = function(child) {
-    this.element.appendChild(child);
+    // if (this.disabled) { //TODO: move functionality to deactivation module ?
+    //     child.setDisable(this.disabled);
+    // }
+    this.element.appendChild(child.element);
 };
 
 BaseComponent.prototype.handler = function(e) {

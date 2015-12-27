@@ -10,12 +10,4 @@ function Container(meta) {
 
 Container.prototype = new BaseComponent();
 
-Container.prototype.build = function() {
-    var tempElement = document.createElement('div');
-    tempElement.innerHTML = this.template();
-
-    this.element = tempElement.firstChild;
-    tempElement = null;
-};
-
 module.exports = Container;
