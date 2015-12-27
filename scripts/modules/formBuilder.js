@@ -53,41 +53,23 @@ function transformStructure(flatStructure) {
     return struct;
 }
 
-/* result
-    {
-        root: {
-            'section-1': {
-                age: null,
-                sex: null
-            },
-            'section-2': {
-                email: null,
-                confirm: null
-            },
-            'section-3': {
-                submit: null
-            }
-        }
-    }
-*/
-
 function traverseTree(tree) {
     for (var prop in tree) {
         if (prop === 'root') {
             return traverseTree(tree[prop]);
         }
 
-        if (tree[prop] !== null) {
-            document.body.appendChild(elementManager.findElement(prop).element);
-        } else {
-            var temp = Object.keys(tree).map(function(prop) {
-                return elementManager.findElement(prop);
-            });
+        var temp = Object.keys(tree).map(function(prop) {
+            return elementManager.findElement(prop);
+        });
 
-            sortElements(temp).forEach(function(elem) {
-                elementManager.findParent(prop).addChild(elem.element); //TODO find parent and its addChild
-            });
-        }
+        sortElements(temp).forEach(function(elem) {
+            if (tree[prop] !== null) {
+                document.body.appendChild(elem.element);
+            } else {
+                elementManager.findParent(prop).addChild(elem);
+            }
+        });
 
         traverseTree(tree[prop]);
     }
