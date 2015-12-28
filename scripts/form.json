@@ -1,8 +1,18 @@
 [
     {
-        "path": "root.section-1",
-        "type": "CONTAINER",
+        "path": "root.collapseAllBtn",
+        "id": "collapseAll",
+        "type": "COLLAPSETOGGLE",
+        "desc": "Toggle all",
         "order": 0,
+        "classList": [
+            "toggle-btn"
+        ]
+    },
+    {
+        "path": "root.section-1",
+        "type": "COLLAPSE",
+        "order": 1,
         "disabled": false,
         "classList": [
             "newClass"
@@ -55,28 +65,28 @@
     {
         "path": "root.section-2",
         "type": "CONTAINER",
-        "order": 1,
-        "disabled": true
+        "order": 2,
+        "disabled": false
     },
     {
         "path": "root.section-2.email",
         "id": "email",
         "type": "TEXT",
         "desc": "Provide your e-mail address",
-        "order": 5,
-        "disabled": true
+        "order": 0,
+        "disabled": false
     },
     {
         "path": "root.section-2.confirm",
         "id": "confirm",
         "type": "BUTTON",
-        "desc": "Please confirm that agree",
-        "order": 4
+        "desc": "Please confirm that agree.",
+        "order": 1
     },
     {
         "path": "root.section-3",
-        "type": "CONTAINER",
-        "order": 2,
+        "type": "COLLAPSE",
+        "order": 3,
         "disabled": true
     },
     {

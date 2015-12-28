@@ -3,9 +3,11 @@ var elementManager = require('./elementManager');
 var moduleManager = require('./moduleManager');
 var mapping = {
     CONTAINER: require('../components/container'),
+    COLLAPSE: require('../components/collapse'),
     TEXT: require('../components/input'),
     DICTIONARY: require('../components/dictionary'),
-    BUTTON: require('../components/button')
+    BUTTON: require('../components/button'),
+    COLLAPSETOGGLE: require('../components/collapseToggle')
 };
 
 function formBuilder(structure) {
@@ -67,7 +69,12 @@ function traverseTree(tree) {
             if (tree[prop] !== null) {
                 document.body.appendChild(elem.element);
             } else {
-                elementManager.findParent(prop).addChild(elem);
+                var parent = elementManager.findParent(prop);
+                if (parent) {
+                    parent.addChild(elem);
+                } else {
+                    document.body.appendChild(elem.element);
+                }
             }
         });
 

@@ -1,0 +1,8 @@
+.collapsed .header {
+    background: blue;
+    color: white;
+}
+
+.collapsed .header ~ div {
+    display: none;
+}
