@@ -6,23 +6,17 @@ function BaseComponent(meta) {
 
 BaseComponent.prototype.build = function(context) {
     var element = document.createElement('div');
+    element.setAttribute('id', this.id);
+    element.innerHTML = this.template(context);
+    this.element = element;
+    this.validationElement = this.element.querySelector('.validation');
+    this.handler = this.handler.bind(this);
+    this.commonActions();
+};
 
-    if (this.type === 'CONTAINER') {
-        var tempElement = element.cloneNode();
-        tempElement.innerHTML = this.template();
-
-        this.element = tempElement.firstChild;
-        tempElement = null;
-    } else {
-        element.setAttribute('id', this.id);
-        element.innerHTML = this.template(context);
-        this.element = element;
-        this.validationElement = this.element.querySelector('.validation');
-        this.handler = this.handler.bind(this);
-    }
-
+BaseComponent.prototype.commonActions = function() {
     if (this.coreElement) {
-        this.coreElement = element.querySelector(this.coreElement);
+        this.coreElement = this.element.querySelector(this.coreElement);
     }
 
     if (this.classList && this.classList.length) {
