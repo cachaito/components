@@ -4,7 +4,7 @@
   "description": "Testing of validation module and Jade templating",
   "main": "index.js",
   "scripts": {
-    "test": "jscs ./scripts --reporter=console",
+    "test": "jscs ./scripts --reporter=console && jsinspect -t 60 ./scripts",
     "browserify": "browserify -t [jadeify --pretty false] scripts/main.js > ./bundle.js -d",
     "watchify": "watchify scripts/main.js -o ./bundle.js -t jadeify -d --verbose",
     "watch": "npm-scripts-watcher",
@@ -25,6 +25,7 @@
     "jade": "^1.11.0",
     "jadeify": "^4.5.0",
     "jscs": "^2.7.0",
+    "jsinspect": "^0.7.2",
     "npm-scripts-watcher": "^1.0.2",
     "watchify": "^3.6.1"
   }
