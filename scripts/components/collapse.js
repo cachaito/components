@@ -22,12 +22,7 @@ Collapse.prototype.build = function() {
 
 Collapse.prototype.setCollapse = function(type) {
     this.collapsed = type || !this.collapsed;
-
-    if (type) {
-        this.element.classList.add('collapsed');
-    } else {
-        this.element.classList.toggle('collapsed');
-    }
+    this.element.classList.toggle('collapsed');
 };
 
 Collapse.prototype.handler = function(e) {

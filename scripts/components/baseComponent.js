@@ -44,9 +44,9 @@ BaseComponent.prototype.setDisable = function(value) {
 };
 
 BaseComponent.prototype.addChild = function(child) {
-    // if (this.disabled) { //TODO: move functionality to deactivation module ?
-    //     child.setDisable(this.disabled);
-    // }
+    if (this.disabled) { //TODO: move functionality to deactivation module ?
+        child.setDisable(this.disabled);
+    }
     this.element.appendChild(child.element);
 };
 
