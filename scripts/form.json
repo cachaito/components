@@ -73,21 +73,23 @@
         "id": "email",
         "type": "TEXT",
         "desc": "Provide your e-mail address",
-        "order": 0,
-        "disabled": false
+        "order": 0
     },
     {
         "path": "root.section-2.confirm",
         "id": "confirm",
         "type": "BUTTON",
         "desc": "Please confirm that agree.",
-        "order": 1
+        "order": 1,
+        "deactivate": [
+            "root.section-1.sex"
+        ]
     },
     {
         "path": "root.section-3",
         "type": "COLLAPSE",
         "order": 3,
-        "disabled": true
+        "disabled": false
     },
     {
         "path": "root.section-3.submit",

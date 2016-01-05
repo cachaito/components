@@ -40,7 +40,7 @@ BaseComponent.prototype.setError = function(messages) {
 
 BaseComponent.prototype.setDisable = function(value) {
     value === true ? this.coreElement.setAttribute('disabled', value) : this.coreElement.removeAttribute('disabled');
-    this.fire('disable-element', this);
+    this.disabled = value;
 };
 
 BaseComponent.prototype.addChild = function(child) {
@@ -54,6 +54,10 @@ BaseComponent.prototype.handler = function(e) {
     if (e.target === this.coreElement) {
         console.log(e);
         this.fire('value-change', this);
+
+        if (this.deactivate) {
+            this.fire('deactivate', this);
+        }
     }
 };
 

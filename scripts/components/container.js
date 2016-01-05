@@ -6,7 +6,6 @@ function Container(meta) {
 
     this.template = template;
     this.build();
-    this.commonActions();
 }
 
 Container.prototype = new BaseComponent();
@@ -16,6 +15,7 @@ Container.prototype.build = function() {
     tempElement.innerHTML = this.template();
     this.element = tempElement.firstChild;
     tempElement = null;
+    this.commonActions();
 };
 
 module.exports = Container;

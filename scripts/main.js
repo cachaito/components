@@ -4,5 +4,5 @@ var formData = require('./form.json');
 
 (function init() {
     formBuilder(formData);
-    manageEvents(['value-change', 'disable-element', 'toggle']);
+    manageEvents(['value-change', 'disable-element', 'toggle', 'deactivate']);
 })();

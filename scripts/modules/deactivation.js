@@ -9,9 +9,13 @@ function addDeactivation(component) {
 }
 
 function deactivate(component) {
-    // if (component.hasOwnProperty('enabled') && elementManager.hasChildren(component)) { // TODO
-    //     // return component.disabled === true ? component.setDisable(true) : component.setDisable(false)
-    // }
+    component.deactivate.forEach(function(searchElem) {
+        var toDeactivate = elementManager.findElement(searchElem.split('.').pop());
+
+        if (toDeactivate && !toDeactivate.disabled) {
+            toDeactivate.setDisable(true);
+        }
+    });
 }
 
 module.exports = addDeactivation;

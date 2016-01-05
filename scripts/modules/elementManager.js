@@ -25,8 +25,6 @@ function findParent(name) {
     if (result) {
         return result;
     }
-    // first way iterate through DOM elements and check if component contains children - preferable solution; component know nothing about other components
-    // when build elements save reference in component
 }
 
 function findElement(name) {

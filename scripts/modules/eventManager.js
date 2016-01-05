@@ -20,12 +20,12 @@ function manageEvents(event) {
         case 'toggle':
             observer.trigger('toggle', event.detail);
             break;
+        case 'deactivate':
+            observer.trigger('deactivate', event.detail);
+            break;
         default:
             throw new Error(event.type + ' is not supported');
     }
-    // if (event.type === 'disable-element') {
-    //     observer.trigger('deactivate', event.detail);
-    // }
     // if (data.type === 'submit-form') {
     //     observer.trigger('validate', data);
     // }

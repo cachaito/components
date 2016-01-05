@@ -9,20 +9,22 @@ function Collapse(meta) {
     this.coreElement = '.header';
     this.build();
     this.attachEvents('click');
-    this.commonActions();
 }
 
 Collapse.prototype = new BaseComponent();
 
 Collapse.prototype.build = function() {
-
     Container.prototype.build.call(this);
     this.handler = this.handler.bind(this);
 };
 
 Collapse.prototype.setCollapse = function(type) {
-    this.collapsed = type || !this.collapsed;
+    if (type && this.collapsed === true) {
+        return;
+    }
+
     this.element.classList.toggle('collapsed');
+    this.collapsed = type || !this.collapsed;
 };
 
 Collapse.prototype.handler = function(e) {
