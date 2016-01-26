@@ -1,9 +1,7 @@
 var observer = require('./observer');
 
 function listenForEvents(events) {
-    events = [].concat(events);
-
-    events.forEach(function(event) {
+    [].concat(events).forEach(function(event) {
         document.addEventListener(event, manageEvents);
     });
 
