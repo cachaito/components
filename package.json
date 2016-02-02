@@ -4,10 +4,13 @@
   "description": "Testing of validation module and Jade templating",
   "main": "index.js",
   "scripts": {
-    "test": "jscs ./scripts --reporter=console && jsinspect -t 60 ./scripts",
+    "test": "tape ./test/**/*-test.js | faucet",
+    "lint": "jscs ./scripts --reporter=console && jsinspect -t 60 ./scripts",
     "browserify": "browserify -t [jadeify --pretty false] scripts/main.js > ./bundle.js -d",
     "watchify": "watchify scripts/main.js -o ./bundle.js -t jadeify -d --verbose",
     "watch": "npm-scripts-watcher",
+    "livereload": "live-reload ./scripts/ --port 9090",
+    "serve": "superstatic ./ --port 8080 --host 127.0.0.1",
     "start": "npm run browserify && npm run watch"
   },
   "watch": {
@@ -22,11 +25,15 @@
   },
   "devDependencies": {
     "browserify": "^12.0.1",
+    "faucet": "0.0.1",
     "jade": "^1.11.0",
     "jadeify": "^4.5.0",
     "jscs": "^2.7.0",
     "jsinspect": "^0.7.2",
+    "livereload": "^0.4.1",
     "npm-scripts-watcher": "^1.0.2",
+    "superstatic": "^4.0.1",
+    "tape": "^4.4.0",
     "watchify": "^3.6.1"
   }
 }
