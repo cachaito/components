@@ -6,6 +6,7 @@ var mapping = {
     COLLAPSE: require('../components/collapse'),
     TEXT: require('../components/input'),
     DICTIONARY: require('../components/dictionary'),
+    MULTIPLEDICTIONARY: require('../components/multipleDictionary'),
     BUTTON: require('../components/button'),
     COLLAPSETOGGLE: require('../components/collapseToggle')
 };

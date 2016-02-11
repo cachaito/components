@@ -92,6 +92,61 @@
         "disabled": false
     },
     {
+        "path": "root.section-3.dynamicDictionary",
+        "id": "firstMultipleDict",
+        "type": "MULTIPLEDICTIONARY",
+        "desc": "Choose on or more options",
+        "selectedValues": [
+            {
+                "value": "lodz",
+                "label": "Łódź"
+            },
+            {
+                "value": "warszawa",
+                "label": "Warszawa"
+            },
+            {
+                "value": "krakow",
+                "label": "Kraków"
+            },
+            {
+                "value": "wroclaw",
+                "label": "Wrocław"
+            }
+        ],
+        "order": 1,
+        "options": [
+            {
+                "value": "lodz",
+                "label": "Łódź"
+            },
+            {
+                "value": "warszawa",
+                "label": "Warszawa"
+            },
+            {
+                "value": "krakow",
+                "label": "Kraków"
+            },
+            {
+                "value": "wroclaw",
+                "label": "Wrocław"
+            },
+            {
+                "value": "poznan",
+                "label": "Poznań"
+            },
+            {
+                "value": "bydgoszcz",
+                "label": "Bydgoszcz"
+            },
+            {
+                "value": "torun",
+                "label": "Toruń"
+            }
+        ],
+    },
+    {
         "path": "root.section-3.submit",
         "id": "submit",
         "type": "BUTTON",

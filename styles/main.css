@@ -1,0 +1,119 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+a:hover {
+    color: Black;
+    text-decoration: none;
+}
+
+ul {
+    list-style-position: inside;
+    list-style-type: none;
+}
+
+.collapsed .header {
+    background: Blue;
+    color: White;
+}
+
+.collapsed .header ~ div {
+    display: none;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 2.25rem;
+    padding-right: 34px;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.input-wrapper input {
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-right: 34px;
+    border: none;
+    background: none;
+}
+
+.input-wrapper .icon {
+    position: absolute;
+    right: 0;
+    font-size: 1.75em;
+}
+
+.lozenge {
+    display: inline-block;
+    margin: 1px 2px 1px 1px;
+    padding: 1px 2px;
+    font-size: 11px;
+    color: White;
+    border: 1px solid DarkGray;
+    background: Silver;
+}
+
+.lozenge:last-child {
+    margin-right: 0px;
+}
+
+.lozenge:first-child {
+    margin-left: 0px;
+}
+
+.lozenge:hover {
+    border-color: LightGrey;
+}
+
+.lozenge .icon {
+    margin-left: 5px;
+    color: inherit;
+    vertical-align: middle;
+}
+
+.lozenge .icon:hover {
+    color: Black;
+}
+
+.hint-container {
+    z-index: 1;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    padding: 0;
+    border: 1px solid gray;
+    background: White;
+}
+
+.hint-container.closed {
+    display: none;
+}
+
+.hint-container .hint {
+    margin-bottom: 1px;
+}
+
+.hint-container .hint:last-child {
+    margin-bottom: 0;
+}
+
+.hint-container a {
+    display: block;
+    padding: 5px;
+}
+
+.hint-container .hint a:hover {
+    background: Black;
+    color: White;
+}
+
+.hint-container .selected a {
+    color: White;
+    background: Blue;
+}
