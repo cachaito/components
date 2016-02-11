@@ -87,6 +87,16 @@ MultipleDictionary.prototype.updateHints = function(selected) {
     }
 };
 
+MultipleDictionary.prototype.searchHints = function(typed) {
+    var filtered = this.hints.filter(function(hint) {
+        return hint.label === typed;
+    })[0];
+
+    if (filtered) {
+        debugger;
+    }
+};
+
 MultipleDictionary.prototype.operateHintContainer = function() {
     this.hintContainerTrigger.classList.toggle('icon-chevron-down');
     this.hintContainerTrigger.classList.toggle('icon-chevron-up');
@@ -112,7 +122,7 @@ MultipleDictionary.prototype.handler = function(e) {
         }
 
         if (e.type === 'change') {
-
+            this.searchHints(e.target.value);
         }
     }
 
