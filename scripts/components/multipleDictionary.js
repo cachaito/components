@@ -43,9 +43,9 @@ MultipleDictionary.prototype.buildHints = function(hints, lozenges) {
     });
 
     this.hints.forEach(function(hint) {
-        lozenges.forEach(function(lozenge) {
-            hint.selected = !hint.selected && hint.value !== lozenge.getAttribute('data-value') ? null : lozenge;
-        });
+        hint.selected = lozenges.filter(function(lozenge) {
+            return hint.value === lozenge.getAttribute('data-value') ? lozenge : null;
+        })[0];
 
         if (hint.selected) {
             hint.elem.parentNode.classList.add('selected');
@@ -65,12 +65,15 @@ MultipleDictionary.prototype.buildHints = function(hints, lozenges) {
 
 MultipleDictionary.prototype.updateHints = function(selected) {
     var filtered = this.hints.filter(function(hint) {
-        return hint.elem === selected;
+        return hint.value === selected.getAttribute('data-value');
     })[0];
 
     if (filtered) {
         if (filtered.selected) {
-
+            filtered.elem.parentNode.classList.remove('selected');
+            var toDelete = filtered.selected.parentNode;
+            this.lozengeContainer.removeChild(filtered.selected.parentNode);
+            filtered.selected = null;
         } else {
             var label = filtered.label;
             var value = filtered.value;
@@ -78,7 +81,7 @@ MultipleDictionary.prototype.updateHints = function(selected) {
             lozenge.firstChild.innerHTML = label;
             lozenge.lastChild.setAttribute('data-value', value);
             filtered.elem.parentNode.classList.add('selected');
-            filtered.selected = lozenge;
+            filtered.selected = lozenge.lastChild;
             this.lozengeContainer.appendChild(lozenge);
         }
     }
