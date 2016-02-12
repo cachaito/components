@@ -27,6 +27,7 @@ MultipleDictionary.prototype.build = function(context) {
     _build.call(this, context);
     this.hints = null;
     this.lozengePattern = null;
+    this.prepareLozengePattern();
     this.lozengeContainer = this.element.querySelector('.lozenges');
     this.hintContainer = this.element.querySelector('.hint-container');
     this.hintContainerTrigger = this.element.querySelector('.hint-trigger');
@@ -51,7 +52,9 @@ MultipleDictionary.prototype.buildHints = function(hints, lozenges) {
             hint.elem.parentNode.classList.add('selected');
         }
     });
+};
 
+MultipleDictionary.prototype.prepareLozengePattern = function() {
     var lozengeOuterElement = document.createElement('span');
     var lozengeLabelElement = document.createElement('text');
     var lozengeInnerElement = document.createElement('a');
@@ -88,13 +91,14 @@ MultipleDictionary.prototype.updateHints = function(selected) {
 };
 
 MultipleDictionary.prototype.searchHints = function(typed) {
-    var filtered = this.hints.filter(function(hint) {
-        return hint.label === typed;
-    })[0];
+    // var filtered = this.hints.filter(function(hint) {
+    //     return hint.label === typed;
+    // })[0];
 
-    if (filtered) {
-        debugger;
-    }
+    // if (filtered) {
+    //     this.operateHintContainer();
+    //     this.updateHints(filtered.elem);
+    // }
 };
 
 MultipleDictionary.prototype.operateHintContainer = function() {
