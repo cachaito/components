@@ -150,8 +150,8 @@ MultipleDictionary.prototype.handler = function(e) {
         this.toggleContainer();
     }
 
-    if (e.target === this.coreElement) {
-        if (e.type === 'input' && e.target.value.length > 1) {
+    if (e.type === 'input' && e.target === this.coreElement) {
+        if (e.target.value.length > 1) {
             this.searchHints(e.target.value);
         } else {
             this.toggleContainer();
