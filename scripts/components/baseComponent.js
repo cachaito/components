@@ -14,6 +14,10 @@ BaseComponent.prototype.build = function(context) {
     this.commonActions();
 };
 
+BaseComponent.prototype.getValue = function() {
+    return this.coreElement.value;
+};
+
 BaseComponent.prototype.commonActions = function() {
     if (this.coreElement) {
         this.coreElement = this.element.querySelector(this.coreElement);

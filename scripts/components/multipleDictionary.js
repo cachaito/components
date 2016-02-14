@@ -21,7 +21,7 @@ function MultipleDictionary(meta) {
 MultipleDictionary.prototype = new BaseComponent();
 
 var _build = MultipleDictionary.prototype.build;
-var _attachEvents = MultipleDictionary.prototype.attachEvents;
+// var _attachEvents = MultipleDictionary.prototype.attachEvents;
 
 MultipleDictionary.prototype.build = function(context) {
     _build.call(this, context);
@@ -32,6 +32,14 @@ MultipleDictionary.prototype.build = function(context) {
     this.hintContainer = this.element.querySelector('.hint-container');
     this.hintContainerTrigger = this.element.querySelector('.hint-trigger');
     this.buildHints(Array.apply(null, this.hintContainer.querySelectorAll('.hint a')), Array.apply(null, this.lozengeContainer.querySelectorAll('.lozenge a')));
+};
+
+BaseComponent.prototype.getValue = function() {
+    return this.hints.filter(function(hint) {
+        return hint.selected;
+    }).map(function(selected) {
+        return selected.value;
+    });
 };
 
 MultipleDictionary.prototype.buildHints = function(hints, lozenges) {
@@ -54,6 +62,56 @@ MultipleDictionary.prototype.buildHints = function(hints, lozenges) {
     });
 };
 
+MultipleDictionary.prototype.updateHints = function(selected) {
+    if (selected.length) { // searched results
+        this.hints.forEach(function(hint) {
+            hint.elem.parentNode.classList.add('hidden');
+            selected.forEach(function(selected) {
+                if (selected.value === hint.value) {
+                    hint.elem.parentNode.classList.remove('hidden');
+                }
+            });
+        });
+
+        this.toggleContainer();
+    } else { // selected value from hint or lozenge
+
+        var filtered = this.hints.filter(function(hint) {
+            return hint.value === selected.getAttribute('data-value');
+        })[0];
+
+        if (filtered) {
+            if (filtered.selected) {
+                filtered.elem.parentNode.classList.remove('selected');
+                var toDelete = filtered.selected.parentNode;
+                this.lozengeContainer.removeChild(filtered.selected.parentNode);
+                filtered.selected = null;
+            } else {
+                var label = filtered.label;
+                var value = filtered.value;
+                var lozenge = this.lozengePattern.cloneNode(true);
+                lozenge.firstChild.innerHTML = label;
+                lozenge.lastChild.setAttribute('data-value', value);
+                filtered.elem.parentNode.classList.add('selected');
+                filtered.selected = lozenge.lastChild;
+                this.lozengeContainer.appendChild(lozenge);
+            }
+        }
+    }
+};
+
+MultipleDictionary.prototype.searchHints = function(typed) {
+    var filtered = this.hints.filter(function(hint) {
+        return hint.label.toLowerCase().indexOf(typed.trim().toLowerCase()) !== -1;
+    });
+
+    if (filtered.length) {
+        this.updateHints(filtered);
+    } else {
+
+    }
+};
+
 MultipleDictionary.prototype.prepareLozengePattern = function() {
     var lozengeOuterElement = document.createElement('span');
     var lozengeLabelElement = document.createElement('text');
@@ -66,49 +124,21 @@ MultipleDictionary.prototype.prepareLozengePattern = function() {
     this.lozengePattern = lozengeOuterElement;
 };
 
-MultipleDictionary.prototype.updateHints = function(selected) {
-    var filtered = this.hints.filter(function(hint) {
-        return hint.value === selected.getAttribute('data-value');
-    })[0];
-
-    if (filtered) {
-        if (filtered.selected) {
-            filtered.elem.parentNode.classList.remove('selected');
-            var toDelete = filtered.selected.parentNode;
-            this.lozengeContainer.removeChild(filtered.selected.parentNode);
-            filtered.selected = null;
-        } else {
-            var label = filtered.label;
-            var value = filtered.value;
-            var lozenge = this.lozengePattern.cloneNode(true);
-            lozenge.firstChild.innerHTML = label;
-            lozenge.lastChild.setAttribute('data-value', value);
-            filtered.elem.parentNode.classList.add('selected');
-            filtered.selected = lozenge.lastChild;
-            this.lozengeContainer.appendChild(lozenge);
-        }
+MultipleDictionary.prototype.toggleContainer = function() {
+    if (this.coreElement.value === '' || this.coreElement.value.length < 2) { // think about more clever way
+        this.hints.forEach(function(hint) {
+            hint.elem.parentNode.classList.remove('hidden');
+        });
     }
-};
 
-MultipleDictionary.prototype.searchHints = function(typed) {
-    // var filtered = this.hints.filter(function(hint) {
-    //     return hint.label === typed;
-    // })[0];
-
-    // if (filtered) {
-    //     this.operateHintContainer();
-    //     this.updateHints(filtered.elem);
-    // }
-};
-
-MultipleDictionary.prototype.operateHintContainer = function() {
     this.hintContainerTrigger.classList.toggle('icon-chevron-down');
     this.hintContainerTrigger.classList.toggle('icon-chevron-up');
     this.hintContainer.classList.toggle('closed');
 };
 
 MultipleDictionary.prototype.attachEvents = function() {
-    _attachEvents.call(this);
+    // _attachEvents.call(this);
+    this.coreElement.addEventListener('input', this.handler);
     this.coreElement.addEventListener('click', this.handler);
     this.hintContainer.addEventListener('click', this.handler);
     this.hintContainerTrigger.addEventListener('click', this.handler);
@@ -117,16 +147,14 @@ MultipleDictionary.prototype.attachEvents = function() {
 
 MultipleDictionary.prototype.handler = function(e) {
     if (e.target === this.hintContainerTrigger) {
-        this.operateHintContainer();
+        this.toggleContainer();
     }
 
     if (e.target === this.coreElement) {
-        if (e.type === 'click' && this.hintContainerTrigger.classList.contains('icon-chevron-up')) {
-            this.operateHintContainer();
-        }
-
-        if (e.type === 'change') {
+        if (e.type === 'input' && e.target.value.length > 1) {
             this.searchHints(e.target.value);
+        } else {
+            this.toggleContainer();
         }
     }
 
@@ -134,6 +162,7 @@ MultipleDictionary.prototype.handler = function(e) {
         e.preventDefault();
 
         this.updateHints(e.target);
+        this.toggleContainer();
     }
 
     if (e.target.matches('a.icon-cross')) {

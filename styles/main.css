@@ -99,6 +99,10 @@ ul {
     margin-bottom: 1px;
 }
 
+.hint-container .hint.hidden {
+    display: none;
+}
+
 .hint-container .hint:last-child {
     margin-bottom: 0;
 }
