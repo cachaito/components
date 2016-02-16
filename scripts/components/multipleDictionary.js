@@ -21,7 +21,6 @@ function MultipleDictionary(meta) {
 MultipleDictionary.prototype = new BaseComponent();
 
 var _build = MultipleDictionary.prototype.build;
-// var _attachEvents = MultipleDictionary.prototype.attachEvents;
 
 MultipleDictionary.prototype.build = function(context) {
     _build.call(this, context);
@@ -34,7 +33,7 @@ MultipleDictionary.prototype.build = function(context) {
     this.buildHints(Array.apply(null, this.hintContainer.querySelectorAll('.hint a')), Array.apply(null, this.lozengeContainer.querySelectorAll('.lozenge a')));
 };
 
-BaseComponent.prototype.getValue = function() {
+MultipleDictionary.prototype.getValue = function() {
     return this.hints.filter(function(hint) {
         return hint.selected;
     }).map(function(selected) {
@@ -47,23 +46,24 @@ MultipleDictionary.prototype.buildHints = function(hints, lozenges) {
         return {
             label: hint.innerHTML,
             value: hint.getAttribute('data-value'),
+            selected: null,
             elem: hint
         };
     });
 
     this.hints.forEach(function(hint) {
-        hint.selected = lozenges.filter(function(lozenge) {
-            return hint.value === lozenge.getAttribute('data-value') ? lozenge : null;
-        })[0];
-
-        if (hint.selected) {
-            hint.elem.parentNode.classList.add('selected');
-        }
+        lozenges.forEach(function(lozenge) {
+            if (hint.value === lozenge.getAttribute('data-value')) {
+                hint.selected = lozenge;
+                hint.elem.parentNode.classList.add('selected');
+            }
+        });
     });
 };
 
 MultipleDictionary.prototype.updateHints = function(selected) {
-    if (selected.length) { // searched results
+    if (selected.length) {
+        // searched results
         this.hints.forEach(function(hint) {
             hint.elem.parentNode.classList.add('hidden');
             selected.forEach(function(selected) {
@@ -73,29 +73,27 @@ MultipleDictionary.prototype.updateHints = function(selected) {
             });
         });
 
-        this.toggleContainer();
-    } else { // selected value from hint or lozenge
-
+        this.toggleContainer('open');
+    } else {
+        // selected value from hint or lozenge
         var filtered = this.hints.filter(function(hint) {
             return hint.value === selected.getAttribute('data-value');
         })[0];
 
-        if (filtered) {
-            if (filtered.selected) {
-                filtered.elem.parentNode.classList.remove('selected');
-                var toDelete = filtered.selected.parentNode;
-                this.lozengeContainer.removeChild(filtered.selected.parentNode);
-                filtered.selected = null;
-            } else {
-                var label = filtered.label;
-                var value = filtered.value;
-                var lozenge = this.lozengePattern.cloneNode(true);
-                lozenge.firstChild.innerHTML = label;
-                lozenge.lastChild.setAttribute('data-value', value);
-                filtered.elem.parentNode.classList.add('selected');
-                filtered.selected = lozenge.lastChild;
-                this.lozengeContainer.appendChild(lozenge);
-            }
+        if (filtered && filtered.selected) {
+            filtered.elem.parentNode.classList.remove('selected');
+            var toDelete = filtered.selected.parentNode;
+            this.lozengeContainer.removeChild(filtered.selected.parentNode);
+            filtered.selected = null;
+        } else {
+            var label = filtered.label;
+            var value = filtered.value;
+            var lozenge = this.lozengePattern.cloneNode(true);
+            lozenge.firstChild.innerHTML = label;
+            lozenge.lastChild.setAttribute('data-value', value);
+            filtered.elem.parentNode.classList.add('selected');
+            filtered.selected = lozenge.lastChild;
+            this.lozengeContainer.appendChild(lozenge);
         }
     }
 };
@@ -107,8 +105,6 @@ MultipleDictionary.prototype.searchHints = function(typed) {
 
     if (filtered.length) {
         this.updateHints(filtered);
-    } else {
-
     }
 };
 
@@ -124,20 +120,27 @@ MultipleDictionary.prototype.prepareLozengePattern = function() {
     this.lozengePattern = lozengeOuterElement;
 };
 
-MultipleDictionary.prototype.toggleContainer = function() {
-    if (this.coreElement.value === '' || this.coreElement.value.length < 2) { // think about more clever way
+MultipleDictionary.prototype.toggleContainer = function(type) {
+    if (type === 'open') {
+        this.hintContainerTrigger.classList.remove('icon-chevron-down');
+        this.hintContainerTrigger.classList.add('icon-chevron-up');
+        this.hintContainer.classList.remove('closed');
+    } else {
+        this.hintContainerTrigger.classList.toggle('icon-chevron-down');
+        this.hintContainerTrigger.classList.toggle('icon-chevron-up');
+        this.hintContainer.classList.toggle('closed');
+    }
+};
+
+MultipleDictionary.prototype.clearHints = function() {
+    if (this.coreElement.value === '' || this.coreElement.value.length < 2) {
         this.hints.forEach(function(hint) {
             hint.elem.parentNode.classList.remove('hidden');
         });
     }
-
-    this.hintContainerTrigger.classList.toggle('icon-chevron-down');
-    this.hintContainerTrigger.classList.toggle('icon-chevron-up');
-    this.hintContainer.classList.toggle('closed');
 };
 
 MultipleDictionary.prototype.attachEvents = function() {
-    // _attachEvents.call(this);
     this.coreElement.addEventListener('input', this.handler);
     this.coreElement.addEventListener('click', this.handler);
     this.hintContainer.addEventListener('click', this.handler);
@@ -151,10 +154,10 @@ MultipleDictionary.prototype.handler = function(e) {
     }
 
     if (e.type === 'input' && e.target === this.coreElement) {
-        if (e.target.value.length > 1) {
+        if (e.target.value.length >= 2) {
             this.searchHints(e.target.value);
         } else {
-            this.toggleContainer();
+            this.clearHints();
         }
     }
 
