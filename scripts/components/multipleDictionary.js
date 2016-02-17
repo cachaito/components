@@ -212,7 +212,8 @@ MultipleDictionary.prototype.handler = function(e) {
                     }
                     break;
                 case 13:
-                    this.updateHints(this.findActiveHint());
+                    // unify to pass and work on one type od data, object / elem
+                    this.updateHints(this.findActiveHint().elem);
                     this.toggleContainer();
                     break;
                 default:
