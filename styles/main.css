@@ -47,6 +47,7 @@ ul {
     position: absolute;
     right: 0;
     font-size: 1.75em;
+    height: 2.25rem;
 }
 
 .lozenge {
@@ -60,11 +61,11 @@ ul {
 }
 
 .lozenge:last-child {
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .lozenge:first-child {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .lozenge:hover {
@@ -86,6 +87,7 @@ ul {
     position: absolute;
     top: 100%;
     width: 100%;
+    margin-top: 1px;
     padding: 0;
     border: 1px solid gray;
     background: White;
@@ -112,8 +114,10 @@ ul {
     padding: 5px;
 }
 
-.hint-container .hint a:hover {
-    background: Black;
+.hint-container .hint a:hover,
+.hint-container .active a,
+.hint-container .selected.active a {
+    background: Green;
     color: White;
 }
 

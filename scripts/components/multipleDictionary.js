@@ -41,8 +41,27 @@ MultipleDictionary.prototype.getValue = function() {
     });
 };
 
-MultipleDictionary.prototype.nextHint = function() {
+MultipleDictionary.prototype.findActiveHint = function() {
+    return this.hints.filter(function(hint) {
+        return 'active' in hint;
+    })[0];
+};
 
+MultipleDictionary.prototype.nextHint = function() {
+    var pos;
+    var current = this.findActiveHint();
+
+    if (current) {
+        pos = current.active < this.hints.length - 1 ? current.active + 1 : 0;
+        current.elem.parentNode.classList.remove('active');
+        this.hints[pos].active = pos;
+        this.hints[pos].elem.parentNode.classList.add('active');
+        delete current.active;
+    } else {
+        current = this.hints[0];
+        current.active = 0;
+        current.elem.parentNode.classList.add('active');
+    }
 };
 
 MultipleDictionary.prototype.prevHint = function() {
@@ -138,7 +157,7 @@ MultipleDictionary.prototype.toggleContainer = function(type) {
 
     if (type === 'close' && !this.hintContainer.classList.contains('closed')) {
         this.hintContainerTrigger.classList.remove('icon-chevron-up');
-        this.hintContainerTrigger.classList.add('icon-chevron-up');
+        this.hintContainerTrigger.classList.add('icon-chevron-down');
         this.hintContainer.classList.add('closed');
         return;
     }
@@ -177,31 +196,24 @@ MultipleDictionary.prototype.handler = function(e) {
             }
         }
 
+        //https://jsfiddle.net/Vtn5Y/
         if (e.type === 'keydown') {
             switch (e.keyCode) {
                 case 40:
-                    this.toggleContainer('open');
+                    if (this.hintContainer.classList.contains('closed')) {
+                        this.toggleContainer('open');
+                    } else {
+                        this.nextHint();
+                    }
                     break;
                 case 38:
-                    this.toggleContainer('close');
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    if (e.target === this.hintContainer && e.type === 'keydown') {
-        if (e.type === 'keydown') {
-            switch (e.keyCode) {
-                case 40:
-                    this.nextHint();
-                    break;
-                case 38:
-                    this.prevHint();
+                    if (!this.hintContainer.classList.contains('closed')) {
+                        this.toggleContainer('close');
+                    }
                     break;
                 case 13:
-                    this.selectActiveHint();
+                    this.updateHints(this.findActiveHint());
+                    this.toggleContainer();
                     break;
                 default:
                     break;
