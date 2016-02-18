@@ -165,14 +165,14 @@ MultipleDictionary.prototype.prepareLozengePattern = function() {
 };
 
 MultipleDictionary.prototype.toggleContainer = function(type) {
-    if (type === 'open' && this.hintContainer.classList.contains('closed')) {
+    if (type === 'open') {
         this.hintContainerTrigger.classList.remove('icon-chevron-down');
         this.hintContainerTrigger.classList.add('icon-chevron-up');
         this.hintContainer.classList.remove('closed');
         return;
     }
 
-    if (type === 'close' && !this.hintContainer.classList.contains('closed')) {
+    if (type === 'close') {
         this.hintContainerTrigger.classList.remove('icon-chevron-up');
         this.hintContainerTrigger.classList.add('icon-chevron-down');
         this.hintContainer.classList.add('closed');
