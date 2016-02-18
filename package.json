@@ -5,13 +5,14 @@
   "main": "bundle.js",
   "scripts": {
     "test": "tape ./test/**/*-test.js | faucet",
-    "pretest": "jscs ./scripts --reporter=console && jsinspect -t 60 ./scripts",
+    "lint": "eslint ./scripts/**/*.js && jscs ./scripts --reporter=console && jsinspect -t 60 ./scripts",
     "browserify": "browserify -t [jadeify --pretty false] scripts/main.js > ./bundle.js -d",
     "watchify": "watchify scripts/main.js -o ./bundle.js -t jadeify -d --verbose",
     "watch": "npm-scripts-watcher",
     "livereload": "live-reload ./scripts/ ./styles/main.css --port 9090",
     "serve": "superstatic ./ --port 8080 --host 127.0.0.1",
-    "start": "parallelshell \"npm run browserify\" \"npm run watch\" \"npm run serve\" \"npm run livereload\" \"start chrome http://localhost:8080\""},
+    "start": "parallelshell \"npm run browserify\" \"npm run watch\" \"npm run serve\" \"npm run livereload\" \"start chrome http://localhost:8080\""
+  },
   "watch": {
     "scripts/**/*.{js,jade}": [
       "watchify"
@@ -24,12 +25,15 @@
   },
   "devDependencies": {
     "browserify": "^12.0.1",
+    "eslint": "^2.1.0",
+    "eslint-config-airbnb": "^5.0.1",
     "faucet": "0.0.1",
     "jade": "^1.11.0",
     "jadeify": "^4.5.0",
     "jscs": "^2.7.0",
     "jsinspect": "^0.7.2",
     "livereload": "^0.4.1",
+    "npm": "^3.7.2",
     "npm-scripts-watcher": "^1.0.2",
     "parallelshell": "^2.0.0",
     "superstatic": "^4.0.1",
