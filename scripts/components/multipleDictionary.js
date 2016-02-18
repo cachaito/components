@@ -47,6 +47,12 @@ MultipleDictionary.prototype.findActiveHint = function() {
     })[0];
 };
 
+MultipleDictionary.prototype.findSelectedHint = function(node) {
+    return this.hints.filter(function(hint) {
+        return hint.value === node.getAttribute('data-value');
+    })[0];
+};
+
 MultipleDictionary.prototype.nextHint = function() {
     var pos;
     var current = this.findActiveHint();
@@ -65,7 +71,20 @@ MultipleDictionary.prototype.nextHint = function() {
 };
 
 MultipleDictionary.prototype.prevHint = function() {
+    var pos;
+    var current = this.findActiveHint();
 
+    if (current) {
+        pos = current.active === 0 ? this.hints.length - 1 : current.active - 1;
+        current.elem.parentNode.classList.remove('active');
+        this.hints[pos].active = pos;
+        this.hints[pos].elem.parentNode.classList.add('active');
+        delete current.active;
+    } else {
+        current = this.hints[0];
+        current.active = 0;
+        current.elem.parentNode.classList.add('active');
+    }
 };
 
 MultipleDictionary.prototype.buildHints = function(hints, lozenges) {
@@ -102,10 +121,8 @@ MultipleDictionary.prototype.updateHints = function(selected) {
 
         this.toggleContainer('open');
     } else {
-        // selected value from hint or lozenge
-        var filtered = this.hints.filter(function(hint) {
-            return hint.value === selected.getAttribute('data-value');
-        })[0];
+        // selected value from hint or lozenge or entered active
+        var filtered = 'tagName' in selected ? this.findSelectedHint(selected) : selected;
 
         if (filtered && filtered.selected) {
             filtered.elem.parentNode.classList.remove('selected');
@@ -208,12 +225,11 @@ MultipleDictionary.prototype.handler = function(e) {
                     break;
                 case 38:
                     if (!this.hintContainer.classList.contains('closed')) {
-                        this.toggleContainer('close');
+                        this.prevHint();
                     }
                     break;
                 case 13:
-                    // unify to pass and work on one type od data, object / elem
-                    this.updateHints(this.findActiveHint().elem);
+                    this.updateHints(this.findActiveHint());
                     this.toggleContainer();
                     break;
                 default:
