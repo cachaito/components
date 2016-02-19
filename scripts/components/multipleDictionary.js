@@ -53,12 +53,12 @@ MultipleDictionary.prototype.findSelectedHint = function(node) {
     })[0];
 };
 
-MultipleDictionary.prototype.nextHint = function() {
+MultipleDictionary.prototype.moveHint = function(fn) {
     var pos;
     var current = this.findActiveHint();
 
     if (current) {
-        pos = current.active < this.hints.length - 1 ? current.active + 1 : 0;
+        pos = fn.call(this, current);
         current.elem.parentNode.classList.remove('active');
         this.hints[pos].active = pos;
         this.hints[pos].elem.parentNode.classList.add('active');
@@ -70,21 +70,12 @@ MultipleDictionary.prototype.nextHint = function() {
     }
 };
 
-MultipleDictionary.prototype.prevHint = function() {
-    var pos;
-    var current = this.findActiveHint();
+MultipleDictionary.prototype.nextHint = function(current) {
+    return current.active < this.hints.length - 1 ? current.active + 1 : 0;
+};
 
-    if (current) {
-        pos = current.active === 0 ? this.hints.length - 1 : current.active - 1;
-        current.elem.parentNode.classList.remove('active');
-        this.hints[pos].active = pos;
-        this.hints[pos].elem.parentNode.classList.add('active');
-        delete current.active;
-    } else {
-        current = this.hints[0];
-        current.active = 0;
-        current.elem.parentNode.classList.add('active');
-    }
+MultipleDictionary.prototype.prevHint = function(current) {
+    return current.active === 0 ? this.hints.length - 1 : current.active - 1;
 };
 
 MultipleDictionary.prototype.buildHints = function(hints, lozenges) {
@@ -126,7 +117,6 @@ MultipleDictionary.prototype.updateHints = function(selected) {
 
         if (filtered && filtered.selected) {
             filtered.elem.parentNode.classList.remove('selected');
-            var toDelete = filtered.selected.parentNode;
             this.lozengeContainer.removeChild(filtered.selected.parentNode);
             filtered.selected = null;
         } else {
@@ -213,19 +203,19 @@ MultipleDictionary.prototype.handler = function(e) {
             }
         }
 
-        //https://jsfiddle.net/Vtn5Y/
+        // https://jsfiddle.net/Vtn5Y/
         if (e.type === 'keydown') {
             switch (e.keyCode) {
                 case 40:
                     if (this.hintContainer.classList.contains('closed')) {
                         this.toggleContainer('open');
                     } else {
-                        this.nextHint();
+                        this.moveHint(this.nextHint);
                     }
                     break;
                 case 38:
                     if (!this.hintContainer.classList.contains('closed')) {
-                        this.prevHint();
+                        this.moveHint(this.prevHint);
                     }
                     break;
                 case 13:
