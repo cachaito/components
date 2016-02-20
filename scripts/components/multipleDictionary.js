@@ -53,6 +53,12 @@ MultipleDictionary.prototype.findSelectedHint = function(node) {
     })[0];
 };
 
+MultipleDictionary.prototype.findAvailableHints = function() {
+    return this.hints.filter(function(hint) {
+        return !hint.elem.parentNode.classList.contains('hidden');
+    }).length;
+};
+
 MultipleDictionary.prototype.moveHint = function(fn) {
     var pos;
     var current = this.findActiveHint();
@@ -71,11 +77,11 @@ MultipleDictionary.prototype.moveHint = function(fn) {
 };
 
 MultipleDictionary.prototype.nextHint = function(current) {
-    return current.active < this.hints.length - 1 ? current.active + 1 : 0;
+    return current.active < this.findAvailableHints() - 1 ? current.active + 1 : 0;
 };
 
 MultipleDictionary.prototype.prevHint = function(current) {
-    return current.active === 0 ? this.hints.length - 1 : current.active - 1;
+    return current.active === 0 ? this.findAvailableHints() - 1 : current.active - 1;
 };
 
 MultipleDictionary.prototype.buildHints = function(hints, lozenges) {
