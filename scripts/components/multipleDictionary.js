@@ -104,37 +104,37 @@ MultipleDictionary.prototype.buildHints = function(hints, lozenges) {
     });
 };
 
-MultipleDictionary.prototype.updateHints = function(selected) {
-    if (selected.length) {
-        // searched results
-        this.hints.forEach(function(hint) {
-            hint.elem.parentNode.classList.add('hidden');
-            selected.forEach(function(selected) {
-                if (selected.value === hint.value) {
-                    hint.elem.parentNode.classList.remove('hidden');
-                }
-            });
+MultipleDictionary.prototype.combineHintResults = function(found) {
+    // searched results
+    this.hints.forEach(function(hint) {
+        hint.elem.parentNode.classList.add('hidden');
+        found.forEach(function(selected) {
+            if (selected.value === hint.value) {
+                hint.elem.parentNode.classList.remove('hidden');
+            }
         });
+    });
 
-        this.toggleContainer('open');
+    this.toggleContainer('open');
+};
+
+MultipleDictionary.prototype.updateHints = function(selected) {
+    // selected value from hint or lozenge or entered active
+    var filtered = 'tagName' in selected ? this.findSelectedHint(selected) : selected;
+
+    if (filtered && filtered.selected) {
+        filtered.elem.parentNode.classList.remove('selected');
+        this.lozengeContainer.removeChild(filtered.selected.parentNode);
+        filtered.selected = null;
     } else {
-        // selected value from hint or lozenge or entered active
-        var filtered = 'tagName' in selected ? this.findSelectedHint(selected) : selected;
-
-        if (filtered && filtered.selected) {
-            filtered.elem.parentNode.classList.remove('selected');
-            this.lozengeContainer.removeChild(filtered.selected.parentNode);
-            filtered.selected = null;
-        } else {
-            var label = filtered.label;
-            var value = filtered.value;
-            var lozenge = this.lozengePattern.cloneNode(true);
-            lozenge.firstChild.innerHTML = label;
-            lozenge.lastChild.setAttribute('data-value', value);
-            filtered.elem.parentNode.classList.add('selected');
-            filtered.selected = lozenge.lastChild;
-            this.lozengeContainer.appendChild(lozenge);
-        }
+        var label = filtered.label;
+        var value = filtered.value;
+        var lozenge = this.lozengePattern.cloneNode(true);
+        lozenge.firstChild.innerHTML = label;
+        lozenge.lastChild.setAttribute('data-value', value);
+        filtered.elem.parentNode.classList.add('selected');
+        filtered.selected = lozenge.lastChild;
+        this.lozengeContainer.appendChild(lozenge);
     }
 };
 
@@ -144,7 +144,7 @@ MultipleDictionary.prototype.searchHints = function(typed) {
     });
 
     if (filtered.length) {
-        this.updateHints(filtered);
+        this.combineHintResults(filtered);
     }
 };
 

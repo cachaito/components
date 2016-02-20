@@ -104,10 +104,6 @@
             {
                 "value": "warszawa",
                 "label": "Warszawa"
-            },
-            {
-                "value": "krakow",
-                "label": "Kraków"
             }
         ],
         "order": 1,
@@ -147,6 +143,10 @@
             {
                 "value": "torun",
                 "label": "Toruń"
+            },
+            {
+                "value": "krasnik",
+                "label": "Kraśnik"
             }
         ],
     },
