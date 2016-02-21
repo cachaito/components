@@ -25,6 +25,7 @@ var _build = MultipleDictionary.prototype.build;
 MultipleDictionary.prototype.build = function(context) {
     _build.call(this, context);
     this.hints = null;
+    this.combinedHints = null;
     this.lozengePattern = null;
     this.prepareLozengePattern();
     this.lozengeContainer = this.element.querySelector('.lozenges');
@@ -42,8 +43,8 @@ MultipleDictionary.prototype.getValue = function() {
 };
 
 MultipleDictionary.prototype.findActiveHint = function() {
-    return this.hints.filter(function(hint) {
-        return 'active' in hint && !hint.elem.parentNode.classList.contains('hidden');
+    return this.findAvailableHints().filter(function(hint) {
+        return 'active' in hint;
     })[0];
 };
 
@@ -54,23 +55,22 @@ MultipleDictionary.prototype.findSelectedHint = function(node) {
 };
 
 MultipleDictionary.prototype.findAvailableHints = function() {
-    return this.hints.filter(function(hint) {
-        return !hint.elem.parentNode.classList.contains('hidden');
-    });
+    return this.combinedHints || this.hints;
 };
 
 MultipleDictionary.prototype.moveHint = function(fn) {
     var pos;
+    var where = this.findAvailableHints();
     var current = this.findActiveHint();
 
     if (current) {
         pos = fn.call(this, current);
         current.elem.parentNode.classList.remove('active');
-        this.hints[pos].active = pos;
-        this.hints[pos].elem.parentNode.classList.add('active');
+        where[pos].active = pos;
+        where[pos].elem.parentNode.classList.add('active');
         delete current.active;
     } else {
-        current = this.findAvailableHints()[0];
+        current = where[0];
         current.active = 0;
         current.elem.parentNode.classList.add('active');
     }
@@ -105,16 +105,31 @@ MultipleDictionary.prototype.buildHints = function(hints, lozenges) {
 };
 
 MultipleDictionary.prototype.combineHintResults = function(found) {
+    var activeItem = this.findActiveHint();
+    var combinedHints = [];
+
+    // remove temp combinedHints array
+    if (this.combinedHints && this.combinedHints.length) {
+        this.combinedHints = [];
+    }
+
+    // remove active flag
+    if (activeItem) {
+        activeItem.elem.parentNode.classList.remove('active');
+    }
+
     // searched results
     this.hints.forEach(function(hint) {
         hint.elem.parentNode.classList.add('hidden');
-        found.forEach(function(selected) {
-            if (selected.value === hint.value) {
+        found.forEach(function(item) {
+            if (item.value === hint.value) {
+                combinedHints.push(item);
                 hint.elem.parentNode.classList.remove('hidden');
             }
         });
     });
 
+    this.combinedHints = combinedHints;
     this.toggleContainer('open');
 };
 
@@ -183,6 +198,7 @@ MultipleDictionary.prototype.toggleContainer = function(type) {
 
 MultipleDictionary.prototype.clearHints = function() {
     if (this.coreElement.value === '' || this.coreElement.value.length < 2) {
+        this.combinedHints = null;
         this.hints.forEach(function(hint) {
             hint.elem.parentNode.classList.remove('hidden');
         });
