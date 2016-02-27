@@ -4,12 +4,14 @@ label #{desc}
             each lozenge in selectedValues
                 span.lozenge #{lozenge.label}
                     a.icon.icon-cross(href="#" data-value=lozenge.value)
+    include ./spinner_template.jade
     .input-wrapper
         input(type='text', id='element-#{id}' class='field' placeholder='#{desc}' disabled=disabled!==undefined)
         a.hint-trigger.icon.icon-chevron-down(href="#")
         ul.hint-container.closed
-            each option in options
-                li.hint
-                    a(href='#' data-value=option.value) #{option.label}
+            if options
+                each option in options
+                    li.hint
+                        a(href='#' data-value=option.value) #{option.label}
 
 include ./validation_template.jade

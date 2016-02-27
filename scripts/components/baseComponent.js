@@ -5,29 +5,56 @@ function BaseComponent(meta) {
 }
 
 BaseComponent.prototype.build = function(context) {
-    var element = document.createElement('div');
-    element.setAttribute('id', this.id);
-    element.innerHTML = this.template(context);
-    this.element = element;
+    if (!this.element) {
+        var element = document.createElement('div');
+        this.element = element;
+    }
+
+    this.element.setAttribute('id', this.id);
+    this.element.innerHTML = this.template(context);
     this.validationElement = this.element.querySelector('.validation');
     this.handler = this.handler.bind(this);
     this.commonActions();
+
+    if (this.deffered) {
+        this.redraw = this.redraw.bind(this, context);
+    }
 };
 
-BaseComponent.prototype.getValue = function() {
-    return this.coreElement.value;
+BaseComponent.prototype.redraw = function(context, updates) {
+    var merged = {};
+
+    for (var name in context) {
+        merged[name] = updates[name] || context[name];
+    }
+
+    // TODO
+    // this.element.innerHTML = this.template(merged);
+
+    this.deffered = false;
+    this.setLoader();
+    this.setDisable();
+    this.build(merged);
 };
 
 BaseComponent.prototype.commonActions = function() {
-    if (this.coreElement) {
-        this.coreElement = this.element.querySelector(this.coreElement);
-    }
+    this.coreElement = this.element.querySelector(this.coreElementName);
 
     if (this.classList && this.classList.length) {
         this.classList.forEach(function(name) {
             this.element.classList.add(name);
         }, this);
     }
+
+    if (this.deffered) {
+        this.loader = this.element.querySelector('.loading-indicator');
+        this.setLoader(true);
+        this.setDisable(true);
+    }
+};
+
+BaseComponent.prototype.getValue = function() {
+    return this.coreElement.value;
 };
 
 BaseComponent.prototype.setError = function(messages) {
@@ -42,13 +69,17 @@ BaseComponent.prototype.setError = function(messages) {
     }
 };
 
+BaseComponent.prototype.setLoader = function(value) {
+    value === true ? this.loader.classList.remove('hidden') : this.loader.classList.add('hidden');
+};
+
 BaseComponent.prototype.setDisable = function(value) {
     value === true ? this.coreElement.setAttribute('disabled', value) : this.coreElement.removeAttribute('disabled');
     this.disabled = value;
 };
 
 BaseComponent.prototype.addChild = function(child) {
-    if (this.disabled) { //TODO: move functionality to deactivation module ?
+    if (this.disabled) { // TODO: move functionality to deactivation module ?
         child.setDisable(this.disabled);
     }
     this.element.appendChild(child.element);

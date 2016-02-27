@@ -11,7 +11,7 @@ function Input(meta) {
     };
 
     this.template = template;
-    this.coreElement = 'input';
+    this.coreElementName = 'input';
     this.build(context);
     this.attachEvents();
 }

@@ -1,3 +1,7 @@
+/*
+    can use array of "options" and "selectedValues" in form.json
+    or dictionary to fill list
+*/
 var BaseComponent = require('./baseComponent');
 var template = require('./multipleDictionary_template.jade');
 
@@ -8,12 +12,12 @@ function MultipleDictionary(meta) {
         id: this.id,
         desc: this.desc,
         selectedValues: this.selectedValues || null,
-        options: this.options,
+        options: this.options || null,
         disabled: this.disabled ? this.disabled : undefined
     };
 
     this.template = template;
-    this.coreElement = 'input';
+    this.coreElementName = 'input';
     this.build(context);
     this.attachEvents();
 }
@@ -212,6 +216,8 @@ MultipleDictionary.prototype.attachEvents = function() {
 };
 
 MultipleDictionary.prototype.handler = function(e) {
+
+    // TODO: avoid Tab action to open hints
     if (e.target === this.hintContainerTrigger) {
         this.toggleContainer();
     }

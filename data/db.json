@@ -1,0 +1,58 @@
+{
+    "cities": {
+        "type": "cities",
+        "version": 0.1,
+        "options": [
+            {
+                "value": "lodz",
+                "label": "Łódź"
+            },
+            {
+                "value": "warszawa",
+                "label": "Warszawa"
+            },
+            {
+                "value": "krakow",
+                "label": "Kraków"
+            },
+            {
+                "value": "wroclaw",
+                "label": "Wrocław"
+            },
+            {
+                "value": "krosno",
+                "label": "Krosno"
+            },
+            {
+                "value": "poznan",
+                "label": "Poznań"
+            },
+            {
+                "value": "bydgoszcz",
+                "label": "Bydgoszcz"
+            },
+            {
+                "value": "bytom",
+                "label": "Bytom"
+            },
+            {
+                "value": "torun",
+                "label": "Toruń"
+            },
+            {
+                "value": "krasnik",
+                "label": "Kraśnik"
+            }
+        ],
+        "selectedValues": [
+            {
+                "value": "lodz",
+                "label": "Łódź"
+            },
+            {
+                "value": "warszawa",
+                "label": "Warszawa"
+            }
+        ]
+    }
+}

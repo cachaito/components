@@ -6,7 +6,7 @@ function Collapse(meta) {
     Container.call(this, meta);
 
     this.template = template;
-    this.coreElement = '.header';
+    this.coreElementName = '.header';
     this.build();
     this.attachEvents('click');
 }

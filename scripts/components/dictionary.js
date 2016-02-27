@@ -13,7 +13,7 @@ function Dictionary(meta) {
     };
 
     this.template = template;
-    this.coreElement = 'select';
+    this.coreElementName = 'select';
     this.build(context);
     this.attachEvents();
 }

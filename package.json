@@ -10,8 +10,9 @@
     "watchify": "watchify scripts/main.js -o ./bundle.js -t jadeify -d --verbose",
     "watch": "npm-scripts-watcher",
     "livereload": "live-reload ./scripts/ ./styles/main.css --port 9090",
+    "endpoint": "json-server --watch data/db.json",
     "serve": "superstatic ./ --port 8080 --host 127.0.0.1",
-    "start": "parallelshell \"npm run browserify\" \"npm run watch\" \"npm run serve\" \"npm run livereload\" \"start chrome http://localhost:8080\""
+    "start": "parallelshell \"npm run browserify\" \"npm run watch\" \"npm run serve\" \"npm run endpoint\" \"npm run livereload\" \"start chrome http://localhost:8080\""
   },
   "watch": {
     "scripts/**/*.{js,jade}": [
@@ -28,10 +29,12 @@
     "eslint": "^2.1.0",
     "eslint-config-airbnb": "^5.0.1",
     "faucet": "0.0.1",
+    "fetchival": "^0.3.1",
     "jade": "^1.11.0",
     "jadeify": "^4.5.0",
     "jscs": "^2.7.0",
     "jsinspect": "^0.7.2",
+    "json-server": "^0.8.8",
     "livereload": "^0.4.1",
     "npm": "^3.7.2",
     "npm-scripts-watcher": "^1.0.2",

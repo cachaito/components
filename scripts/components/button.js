@@ -12,7 +12,7 @@ function Button(meta) {
     };
 
     this.template = template;
-    this.coreElement = 'button';
+    this.coreElementName = 'button';
     this.build(context);
     this.attachEvents('click');
 }

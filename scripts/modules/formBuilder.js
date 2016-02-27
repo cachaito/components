@@ -1,6 +1,7 @@
 /* global APP */
 var elementManager = require('./elementManager');
 var moduleManager = require('./moduleManager');
+var dictionaryManager = require('./dictionaryManager');
 var mapping = {
     CONTAINER: require('../components/container'),
     COLLAPSE: require('../components/collapse'),
@@ -22,8 +23,12 @@ function formBuilder(structure) {
 }
 
 function createComponents(structure) {
+    //TODO: #1 remove variable and return just map result
     var readyComponents = structure.map(function(component) {
         try {
+            if ('dictionary' in component) {
+                dictionaryManager.applyDictionary(component);
+            }
             return moduleManager.applyModules(new mapping[component.type](component));
         } catch (e) {
             throw new Error('Error in creating a component ' + e);
@@ -34,6 +39,7 @@ function createComponents(structure) {
 }
 
 function sortElements(array) {
+    //TODO: chain .concat and .sort and look at #1
     var clonedArray = array.concat();
 
     clonedArray.sort(function(a, b) {
