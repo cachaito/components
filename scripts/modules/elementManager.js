@@ -27,7 +27,8 @@ function findParent(name) {
     }
 }
 
-function findElement(name) {
+function findElement(findWith) {
+    var name = findWith.split('.').pop();
     var result = elements.filter(function(component) {
         var path = component.path.split('.');
         var index = path.indexOf(name);

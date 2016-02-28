@@ -28,7 +28,7 @@ function successResponse(response) {
 
 function updateComponent(dictionary) {
     toUpdate[dictionary.type].map(function(path) {
-        var component = elementManager.findElement(path.split('.').pop()); // TODO: think to simplify this process of searching with path
+        var component = elementManager.findElement(path);
         component.redraw(dictionary);
     });
 }

@@ -10,7 +10,7 @@ function addDeactivation(component) {
 
 function deactivate(component) {
     component.deactivate.forEach(function(searchElem) {
-        var toDeactivate = elementManager.findElement(searchElem.split('.').pop());
+        var toDeactivate = elementManager.findElement(searchElem);
 
         if (toDeactivate && !toDeactivate.disabled) {
             toDeactivate.setDisable(true);

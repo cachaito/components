@@ -217,8 +217,7 @@ MultipleDictionary.prototype.attachEvents = function() {
 
 MultipleDictionary.prototype.handler = function(e) {
 
-    // TODO: avoid Tab action to open hints
-    if (e.target === this.hintContainerTrigger) {
+    if (e.target === this.hintContainerTrigger && e.keyCode !== 9) {
         this.toggleContainer();
     }
 

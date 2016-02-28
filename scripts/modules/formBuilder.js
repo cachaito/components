@@ -23,8 +23,7 @@ function formBuilder(structure) {
 }
 
 function createComponents(structure) {
-    //TODO: #1 remove variable and return just map result
-    var readyComponents = structure.map(function(component) {
+    return structure.map(function(component) {
         try {
             if ('dictionary' in component) {
                 dictionaryManager.applyDictionary(component);
@@ -34,19 +33,12 @@ function createComponents(structure) {
             throw new Error('Error in creating a component ' + e);
         }
     });
-
-    return readyComponents;
 }
 
 function sortElements(array) {
-    //TODO: chain .concat and .sort and look at #1
-    var clonedArray = array.concat();
-
-    clonedArray.sort(function(a, b) {
+    return array.concat().sort(function(a, b) {
         return a.order - b.order;
     });
-
-    return clonedArray;
 }
 
 function transformStructure(flatStructure) {
