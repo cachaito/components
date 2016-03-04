@@ -1,7 +1,7 @@
 var elementManager = require('./elementManager');
 var observer = require('./observer');
-var eventName = 'validate'; // TODO move to config
-var validators = { // TODO consider put validator to a separate module
+var eventName = 'validate'; // TODO: move to config
+var validators = { // TODO: consider put validator to a separate module
     maxLength: function(component, validator) {
         if (component.coreElement.value.length > validator.maxLength) {
             return validator.message;
@@ -19,8 +19,12 @@ var validators = { // TODO consider put validator to a separate module
         }
     },
     selected: function(component, validator) {
-        if (component.coreElement.value === component.defaultOption) {
-            return validator.message;
+        if ('defaultOption' in component) {
+            if (component.coreElement.value === component.defaultOption) {
+                return validator.message;
+            }
+        } else {
+            return component.getValue() === null ? validator.message : null;
         }
     }
 };
@@ -42,7 +46,7 @@ function validateAll() {
     return;
 }
 
-function validate(component, eventName) {
+function validate(component, eventName) { // TODO: consider validating on change/ click
     var result = [];
 
     if (component.model === 'submit') {

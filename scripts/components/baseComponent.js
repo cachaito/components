@@ -28,9 +28,6 @@ BaseComponent.prototype.redraw = function(context, updates) {
         merged[name] = updates[name] || context[name];
     }
 
-    // TODO
-    // this.element.innerHTML = this.template(merged);
-
     this.deffered = false;
     this.setLoader();
     this.setDisable();
@@ -54,7 +51,7 @@ BaseComponent.prototype.commonActions = function() {
 };
 
 BaseComponent.prototype.getValue = function() {
-    return this.coreElement.value;
+    return this.coreElement.value || null;
 };
 
 BaseComponent.prototype.setError = function(messages) {
