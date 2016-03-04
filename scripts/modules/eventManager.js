@@ -16,10 +16,10 @@ function manageEvents(event) {
             }
             break;
         case 'toggle':
-            observer.trigger('toggle', event.detail);
+            observer.trigger(event.type, event.detail);
             break;
         case 'deactivate':
-            observer.trigger('deactivate', event.detail);
+            observer.trigger(event.type, event.detail);
             break;
         default:
             throw new Error(event.type + ' is not supported');
