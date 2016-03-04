@@ -9,6 +9,7 @@ var mapping = {
     DICTIONARY: require('../components/dictionary'),
     MULTIPLEDICTIONARY: require('../components/multipleDictionary'),
     BUTTON: require('../components/button'),
+    BUTTONGROUP: require('../components/buttonGroup'),
     COLLAPSETOGGLE: require('../components/collapseToggle')
 };
 

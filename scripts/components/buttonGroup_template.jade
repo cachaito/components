@@ -1,0 +1,4 @@
+div(id='element-#{id}')
+    each option in options
+        button(class='btn #{option.selected === true ? "selected" : ""}' type='button' disabled=disabled!==undefined) #{option.label}
+include ./validation_template.jade

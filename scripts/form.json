@@ -63,6 +63,28 @@
         "disabled": false
     },
     {
+        "path": "root.section-1.confirm-validator",
+        "id": "choose-0",
+        "type": "BUTTONGROUP",
+        "desc": "Sleepy?.",
+        "order": 2,
+        "options": [
+            {
+                "label": "Yes"
+            },
+            {
+                "label": "Maybe"
+            }
+        ],
+        "validate": true,
+        "validators": [
+            {
+                "selected": true,
+                "message": "Choosing option is mandatory"
+            }
+        ]
+    },
+    {
         "path": "root.section-2",
         "type": "CONTAINER",
         "order": 2,
@@ -83,6 +105,22 @@
         "order": 1,
         "deactivate": [
             "root.section-1.sex"
+        ]
+    },
+    {
+        "path": "root.section-2.confirm-more",
+        "id": "choose-1",
+        "type": "BUTTONGROUP",
+        "desc": "Are you angry?.",
+        "order": 2,
+        "options": [
+            {
+                "label": "Yes",
+                "selected": true
+            },
+            {
+                "label": "No"
+            }
         ]
     },
     {

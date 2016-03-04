@@ -21,6 +21,11 @@ input:disabled ~ a {
     cursor: default;
 }
 
+.btn.selected {
+    color: #fff;
+    background-color: #0074d9;
+}
+
 .collapsed .header {
     background: Blue;
     color: White;
