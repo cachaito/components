@@ -50,6 +50,8 @@ ButtonGroup.prototype.toggleSelected = function(node) {
         node.classList.add('selected');
         this.selected = node;
     }
+
+    this.fire('value-change', this);
 };
 
 module.exports = ButtonGroup;

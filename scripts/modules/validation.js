@@ -46,7 +46,7 @@ function validateAll() {
     return;
 }
 
-function validate(component, eventName) { // TODO: consider validating on change/ click
+function validate(component, eventName) {
     var result = [];
 
     if (component.model === 'submit') {
