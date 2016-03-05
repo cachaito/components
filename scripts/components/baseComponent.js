@@ -54,6 +54,18 @@ BaseComponent.prototype.getValue = function() {
     return this.coreElement.value || null;
 };
 
+BaseComponent.prototype.valueChanged = function(prop, action) {
+    if (prop.value !== this[prop.name]) {
+        this[prop.name] = prop.value;
+
+        action && action();
+
+        return;
+    }
+
+    return console.log('value: ', value, ' hasn\'t changed');
+};
+
 BaseComponent.prototype.setError = function(messages) {
     if (messages.length) {
         this.coreElement.classList.add('error');
