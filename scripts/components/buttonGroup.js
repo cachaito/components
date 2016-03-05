@@ -44,12 +44,12 @@ ButtonGroup.prototype.toggleSelected = function(node) {
         if (node !== this.selected) {
             node.classList.add('selected');
             this.selected.classList.remove('selected');
-            this.valueChanged({name: 'selected', value: node}, this.fire.bind(this, 'value-change', this));
         }
     } else {
         node.classList.add('selected');
-        this.valueChanged({name: 'selected', value: node}, this.fire.bind(this, 'value-change', this));
     }
+
+    this.valueChanged({name: 'selected', value: node}, this.fire.bind(this, 'value-change', this));
 };
 
 module.exports = ButtonGroup;

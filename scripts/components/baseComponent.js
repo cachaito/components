@@ -63,7 +63,7 @@ BaseComponent.prototype.valueChanged = function(prop, action) {
         return;
     }
 
-    return console.log('value: ', value, ' hasn\'t changed');
+    return console.log('value:', prop.name, ' hasn\'t changed');
 };
 
 BaseComponent.prototype.setError = function(messages) {
